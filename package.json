@@ -1,0 +1,30 @@
+{
+  "name": "data_conversionjs_back",
+  "version": "1.0.0",
+  "description": "data_conversionjs_back",
+  "main": "app.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "connect-mongo": "^3.2.0",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "formidable": "^1.2.2",
+    "mongodb": "^3.6.2",
+    "mongoose": "^5.10.11",
+    "multer": "^1.4.2",
+    "node-uuid": "^1.4.8",
+    "socket.io": "^2.3.0",
+    "xml-js": "^1.6.11"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "my",
+  "license": "ISC"
+}
