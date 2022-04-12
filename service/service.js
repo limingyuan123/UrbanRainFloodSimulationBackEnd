@@ -1,16 +1,19 @@
 const datamap = require('../model/datamap');
 const refactor = require('../model/refactor');
+const modelDoc = require('../model/modelDoc');
 const formidable = require('formidable');
 // const { ObjectId } = require('mongodb');
 const ObjectId = require('mongodb').ObjectId;
 const mongoose = require('mongoose');
 const fs = require('fs');
 const convert = require('xml-js');
+const date=require('silly-datetime')
+const uuid=require('node-uuid')
 
 
 var DataMap = datamap.dataMap;
 var Refactor = refactor.refactor;
-
+var ModelDoc = modelDoc.modelDoc;
 exports.getServiceData = function (req, res, next) {
     var form = formidable.IncomingForm();
     // var id = req.url.split('=')[1];
@@ -55,16 +58,52 @@ exports.getServiceData = function (req, res, next) {
 
     })
 }
-
+//解析耦合文档，并存储入库
 exports.coupleDocument = function (req, res, next) {
     let form = formidable.IncomingForm();
-    form.parse(req, (err, field, files) => {
-        //上传的文件会在该服务器下有一个路径做缓存，所以可以直接对该路径下的文件进行处理
-        let filePath = files.datafile.path;
-        let xml = fs.readFileSync(filePath, 'utf-8');        
-        res.send({
-            code:0,    
-            data:xml,        
+    let uid = uuid.v4();
+    let dirPath = __dirname + '/../data/' + uid;
+    fs.mkdir(dirPath, (err) => {
+        if(err) throw err
+
+        form.uploadDir=dirPath
+        form.keepExtensions=true
+        form.parse(req, (err, fields, files) => {
+            //上传的文件会在该服务器下有一个路径做缓存，所以可以直接对该路径下的文件进行处理
+            let filePath = files.datafile.path;
+            let fileName = files.datafile.name;
+            //将filePath下的文件改名
+            fs.rename(filePath, `${dirPath}/${fileName}`, (err)=>{
+                if(err){
+                    console.log('更改文件名出错')
+                }else{
+                    filePath = dirPath + '/' + fileName;
+                    let doc={
+                        uid:uid,
+                        name:fields.name,
+                        description:fields.description,
+                        path:filePath,
+                        date:date.format(new Date(), 'YYYY-MM-DD HH:mm'),
+                    }
+                    
+                    let xml = fs.readFileSync(filePath, 'utf-8');       
+                    ModelDoc.create(doc,function(err1,small){
+                        if(err1){
+                            console.log(err1);
+                            res.send({code:0,message:err1});
+                            return
+                        }
+                        console.log("upload file success")
+        
+                        res.send({
+                            code:0,    
+                            data:xml,
+                        })
+                        return
+                    })
+                }
+            })
         })
     })
+    
 }

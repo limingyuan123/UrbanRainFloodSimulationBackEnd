@@ -17,10 +17,11 @@
     "mongoose": "^5.10.11",
     "multer": "^1.4.2",
     "node-uuid": "^1.4.8",
+    "silly-datetime": "^0.1.2",
     "socket.io": "^2.3.0",
+    "uuid": "^8.3.2",
     "xml-js": "^1.6.11"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
