@@ -7,26 +7,25 @@ const ObjectId = require('mongodb').ObjectId;
 const mongoose = require('mongoose');
 const fs = require('fs');
 const convert = require('xml-js');
-const date=require('silly-datetime')
-const uuid=require('node-uuid')
+const date=require('silly-datetime');
+const uuid=require('node-uuid');
+const config = require('../config/config');
+//数据实体
+const DataMap = datamap.dataMap;
+const Refactor = refactor.refactor;
+const ModelDoc = modelDoc.modelDoc;
 
-
-var DataMap = datamap.dataMap;
-var Refactor = refactor.refactor;
-var ModelDoc = modelDoc.modelDoc;
+//获取服务数据
 exports.getServiceData = function (req, res, next) {
-    var form = formidable.IncomingForm();
-    // var id = req.url.split('=')[1];
-    // form.parse(req, function(err,fields,file){
+    let form = formidable.IncomingForm();
     id = req.query.oid;
     console.log(req.query.oid + " " + req.query.type);
 
     if (id.match(/^[0-9a-fA-F]{24}$/)) {
-        // Yes, it's a valid ObjectId, proceed with `findById` call.
         console.log("yes");
     }
-    var type = req.query.type;
-    var collection;
+    let type = req.query.type;
+    let collection;
     if (type === "map") {
         collection = DataMap;
     } else if(type === 'refactor'){
@@ -58,6 +57,7 @@ exports.getServiceData = function (req, res, next) {
 
     })
 }
+
 //解析耦合文档，并存储入库
 exports.coupleDocument = function (req, res, next) {
     let form = formidable.IncomingForm();
@@ -79,7 +79,8 @@ exports.coupleDocument = function (req, res, next) {
                 }else{
                     filePath = dirPath + '/' + fileName;
                     let doc={
-                        uid:uid,
+                        oid:fields.oid,//为了与前端的模型信息对应
+                        uid:uid,//为了生成唯一文件路径
                         name:fields.name,
                         description:fields.description,
                         path:filePath,
@@ -104,6 +105,5 @@ exports.coupleDocument = function (req, res, next) {
                 }
             })
         })
-    })
-    
+    })    
 }

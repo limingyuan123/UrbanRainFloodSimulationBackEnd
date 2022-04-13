@@ -3,12 +3,12 @@ const fs = require('fs')
 const formidable = require('formidable')
 const uuid = require('node-uuid')
 
-var User = user.User;
+let User = user.User;
 
 
 //login
 exports.login = function (req, res, next) {
-    var form = new formidable.IncomingForm();
+    let form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, file) {
         //当服务端全部接收完客户端post的表单数据后触发，表单域数据放到fields里，文件数据放到files里
         User.findOne({

@@ -3,10 +3,10 @@ const { mongo } = require('mongoose');
 const mongoose = require('../lib/mongodb')
 const DB = require('../lib/mongodb')
 
-var Mixed = mongoose.mongoose.Schema.Types.Mixed;
+let Mixed = mongoose.mongoose.Schema.Types.Mixed;
 
 //定义Schema，表结构
-var dataSchema = new mongoose.mongoose.Schema({
+let dataSchema = new mongoose.mongoose.Schema({
     name:String,
     description:String,
     uname:String,
@@ -26,6 +26,6 @@ var dataSchema = new mongoose.mongoose.Schema({
 })
 
 //创建model
-var dataMap = DB.DB1.model('datamap', dataSchema)
+let dataMap = DB.DB1.model('datamap', dataSchema)
 
 exports.dataMap = dataMap;

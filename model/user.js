@@ -1,11 +1,11 @@
 const { mongo } = require('mongoose');
-const mongoose = require('../lib/mongodb')
-const DB = require('../lib/mongodb')
+const mongoose = require('../lib/mongodb');
+const DB = require('../lib/mongodb');
 
-var Mixed = mongoose.mongoose.Schema.Types.Mixed;
+let Mixed = mongoose.mongoose.Schema.Types.Mixed;
 
 //定义Schema，表结构
-var dataSchema = new mongoose.mongoose.Schema({
+let dataSchema = new mongoose.mongoose.Schema({
     uid:String,
     name:String,
     email:String,
@@ -16,6 +16,6 @@ var dataSchema = new mongoose.mongoose.Schema({
 })
 
 //创建model
-var user = DB.DB1.model('user', dataSchema)
+let user = DB.DB1.model('user', dataSchema);
 
 exports.User = user;

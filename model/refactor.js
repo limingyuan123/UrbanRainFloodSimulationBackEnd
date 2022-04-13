@@ -4,7 +4,7 @@ const mongoose = require('../lib/mongodb')
 const DB = require('../lib/mongodb')
 
 //定义schema表结构
-var refactorSchema = new mongoose.mongoose.Schema({
+let refactorSchema = new mongoose.mongoose.Schema({
     name:String,
     description:String,
     uname:String,
@@ -23,6 +23,6 @@ var refactorSchema = new mongoose.mongoose.Schema({
     collection:'refactor'
 })
 
-var refactor = DB.DB1.model('refactor', refactorSchema);
+let refactor = DB.DB1.model('refactor', refactorSchema);
 
 exports.refactor = refactor;
