@@ -2,18 +2,17 @@ const express = require('express');
 const router = require('./router/router')
 const config = require('./config/config')
 // const MongoStore = require('connect-mongo')(session)
-let server = require('http').createServer(app);
-let io = require('socket.io')(server);
 
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const { Session } = require('inspector');
-var app = express();
-
+const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 //创建application/json解析
-var jsonParser = bodyParser.json();
+const jsonParser = bodyParser.json();
 
 //创建application/x-www-form-urlencoded
-var urlencodeParser = bodyParser.urlencoded({extended:false});
+const urlencodeParser = bodyParser.urlencoded({extended:false});
 
 //CORS跨域设置
 app.all('*', function (req, res, next) {
@@ -38,7 +37,18 @@ app.get("/getServiceData", router.getServiceData);
 
 app.post("/coupleDocument", router.coupleDocument);
 
+app.post('/invoke', router.invoke);
+
+app.post('/downloadFile', router.downloadFile);
+
+app.get('/downloadConfig', router.downloadConfig);
+
 app.listen(config.port,()=>{
     console.log(config.port,process.pid);
     console.log("server online");
 })
+
+//为防止接口调用错误导致的崩溃，设置全局错误捕获
+process.on('uncaughtException', function (err) {
+  console.log('Caught Exception:' + err);//直接捕获method()未定义函数，Node进程未被退出。
+});

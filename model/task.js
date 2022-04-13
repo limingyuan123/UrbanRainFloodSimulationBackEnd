@@ -7,18 +7,16 @@ let Mixed = mongoose.mongoose.Schema.Types.Mixed;
 
 //定义Schema表结构
 let dataSchema = new mongoose.mongoose.Schema({
-    oid:String,
-    uid:String,
-    name:String,//model name
-    description:String,
-    author:String,
-    path:String,
-    date:Date,
+    uid:String,//任务id
+    oids:Array,//本次耦合任务包含的模型oid
+    date:Date,//任务时间
+    outputPath:String,
+    outputPaths:Array,
 },{
     versionKey:false,
-    collection:'modelDoc',
+    collection:'task',
 })
 
 //创建model
-let modelDoc = DB.DB1.model('modelDoc', dataSchema);
-exports.modelDoc = modelDoc;
+let task = DB.DB1.model('task', dataSchema);
+exports.task = task;

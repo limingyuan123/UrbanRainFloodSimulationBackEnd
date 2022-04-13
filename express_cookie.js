@@ -1,8 +1,8 @@
-var express = require('express')
-var cookieParser = require('cookie-parser')
-var util = require('util');
+let express = require('express')
+let cookieParser = require('cookie-parser')
+let util = require('util');
 
-var app = express();
+let app = express();
 app.use(cookieParser);
 
 app.get('/', function(req,res){
