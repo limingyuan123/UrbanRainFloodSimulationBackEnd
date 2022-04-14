@@ -1,11 +1,6 @@
 const modelDoc = require('../model/modelDoc');
 const formidable = require('formidable');
-const ObjectId = require('mongodb').ObjectId;
-const mongoose = require('mongoose');
 const fs = require('fs');
-const date=require('silly-datetime');
-const uuid=require('node-uuid');
-const config = require('../config/config');
 //数据实体
 const ModelDoc = modelDoc.modelDoc;
 
@@ -18,7 +13,7 @@ exports.downloadFile = function(req, res, next){
         try{
             //根据filePath下载文件
             res.writeHead(200, {
-                'Content-Type':'application/octet-stream',
+                'Content-Type':'application/force-download',
                 'Content-Disposition':'attachment;filename=' + encodeURI(fileName),
             })
             let readStream = fs.createReadStream(filePath);
