@@ -92,7 +92,7 @@ exports.coupleDocument = function (req, res, next) {
                         if(err1){
                             console.log(err1);
                             res.send({code:0,message:err1});
-                            return
+                            return;
                         }
                         console.log("upload file success")
         
@@ -100,7 +100,7 @@ exports.coupleDocument = function (req, res, next) {
                             code:0,    
                             data:xml,
                         })
-                        return
+                        return;
                     })
                 }
             })

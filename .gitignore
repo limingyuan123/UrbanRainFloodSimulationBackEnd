@@ -2,3 +2,17 @@ node_modules
 .vscode
 config/config.js
 data
+res_clip_testNoBciAndDoubleCouple1
+fenhu.asc
+fenhu.n.ascii
+fenhu.par
+fenhu.river
+fenhuRain_30_mm_h.rain
+lisflood_inflow.txt
+lisflood.conf
+net05202202_30_time.inp
+node_corrd_clip.bci
+swmm_inflow.txt
+SWMM_Lib.dll
+LISFLOOD_Lib.dll
+swmm.conf
